@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Music, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { Volume2, VolumeX, Play } from 'lucide-react';
 
 interface AudioPlayerProps {
   isPlaying: boolean;
@@ -8,16 +8,23 @@ interface AudioPlayerProps {
 }
 
 // @ts-ignore
-import backgroundMusic from '../../assets/song/Until_I_Found_You.mpeg';
+import songKaiseHua from '../../assets/song/Kaise_hua.mpeg';
+// @ts-ignore
+import songUntilFoundYou from '../../assets/song/Until_I_Found_You.mpeg';
+// @ts-ignore
+import songPerfect from '../../assets/song/Perfect.mpeg';
+
+const playlist = [songKaiseHua, songUntilFoundYou, songPerfect];
 
 export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlayerProps, 'trackUrl'> & { trackUrl?: string }) {
   const [volume, setVolume] = useState(0.35);
+  const [, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Initialize the single audio instance if it doesn't exist
   if (!audioRef.current) {
-    audioRef.current = new Audio(backgroundMusic);
-    audioRef.current.loop = true;
+    audioRef.current = new Audio(playlist[0]);
+    audioRef.current.loop = false; // Disable individual looping to trigger 'ended' event
     audioRef.current.volume = 0.35;
   }
 
@@ -40,6 +47,7 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
     };
   }, [isPlaying, onTogglePlay]);
 
+  // Handle play/pause commands
   useEffect(() => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -52,6 +60,32 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
     }
   }, [isPlaying, onTogglePlay]);
 
+  // Handle auto-advancing playlist when a song ends
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleTrackEnded = () => {
+      setCurrentTrackIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % playlist.length;
+        audio.src = playlist[nextIndex];
+        audio.load();
+        if (isPlaying) {
+          audio.play().catch((err) => {
+            console.log('Playback error on auto-advancing track:', err);
+          });
+        }
+        return nextIndex;
+      });
+    };
+
+    audio.addEventListener('ended', handleTrackEnded);
+    return () => {
+      audio.removeEventListener('ended', handleTrackEnded);
+    };
+  }, [isPlaying]);
+
+  // Sync volume level
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
