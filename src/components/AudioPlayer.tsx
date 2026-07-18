@@ -20,6 +20,10 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
   const [volume, setVolume] = useState(0.35);
   const [, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fadeIntervalRef = useRef<number | null>(null);
+  const isPlayingRef = useRef(isPlaying);
+
+  isPlayingRef.current = isPlaying;
 
   // Initialize the single audio instance if it doesn't exist
   if (!audioRef.current) {
@@ -27,6 +31,37 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
     audioRef.current.loop = false; // Disable individual looping to trigger 'ended' event
     audioRef.current.volume = 0.35;
   }
+
+  // Fades volume to target value over specified duration
+  const fadeAudio = (targetVolume: number, duration: number, callback?: () => void) => {
+    if (!audioRef.current) return;
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+    }
+
+    const startVolume = audioRef.current.volume;
+    const steps = 15;
+    const stepTime = duration / steps;
+    const volumeStep = (targetVolume - startVolume) / steps;
+    let currentStep = 0;
+
+    fadeIntervalRef.current = window.setInterval(() => {
+      if (!audioRef.current) {
+        clearInterval(fadeIntervalRef.current!);
+        return;
+      }
+      currentStep++;
+      const nextVolume = startVolume + volumeStep * currentStep;
+      audioRef.current.volume = Math.max(0, Math.min(1, nextVolume));
+
+      if (currentStep >= steps) {
+        clearInterval(fadeIntervalRef.current!);
+        fadeIntervalRef.current = null;
+        audioRef.current.volume = targetVolume;
+        if (callback) callback();
+      }
+    }, stepTime);
+  };
 
   // Start playing after the user's first interaction anywhere on screen
   useEffect(() => {
@@ -47,35 +82,51 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
     };
   }, [isPlaying, onTogglePlay]);
 
-  // Handle play/pause commands
+  // Handle play/pause commands with fading
   useEffect(() => {
     if (!audioRef.current) return;
     if (isPlaying) {
-      audioRef.current.play().catch((err) => {
+      if (fadeIntervalRef.current) {
+        clearInterval(fadeIntervalRef.current);
+        fadeIntervalRef.current = null;
+      }
+      audioRef.current.volume = 0;
+      audioRef.current.play().then(() => {
+        fadeAudio(volume, 500);
+      }).catch((err) => {
         console.log('Autoplay blocked by browser. User interaction required.', err);
         onTogglePlay(false);
       });
     } else {
-      audioRef.current.pause();
+      fadeAudio(0, 500, () => {
+        if (!isPlayingRef.current && audioRef.current) {
+          audioRef.current.pause();
+        }
+      });
     }
-  }, [isPlaying, onTogglePlay]);
+  }, [isPlaying]);
 
-  // Handle auto-advancing playlist when a song ends
+  // Handle auto-advancing playlist when a song ends with crossfading
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const handleTrackEnded = () => {
-      setCurrentTrackIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % playlist.length;
-        audio.src = playlist[nextIndex];
-        audio.load();
-        if (isPlaying) {
-          audio.play().catch((err) => {
-            console.log('Playback error on auto-advancing track:', err);
-          });
-        }
-        return nextIndex;
+      fadeAudio(0, 500, () => {
+        setCurrentTrackIndex((prevIndex) => {
+          const nextIndex = (prevIndex + 1) % playlist.length;
+          audio.src = playlist[nextIndex];
+          audio.load();
+          if (isPlaying) {
+            audio.volume = 0;
+            audio.play().then(() => {
+              fadeAudio(volume, 500);
+            }).catch((err) => {
+              console.log('Playback error on auto-advancing track:', err);
+            });
+          }
+          return nextIndex;
+        });
       });
     };
 
@@ -83,18 +134,25 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
     return () => {
       audio.removeEventListener('ended', handleTrackEnded);
     };
-  }, [isPlaying]);
+  }, [isPlaying, volume]);
 
-  // Sync volume level
+  // Sync volume level when changed via slider
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && isPlaying) {
+      if (fadeIntervalRef.current) {
+        clearInterval(fadeIntervalRef.current);
+        fadeIntervalRef.current = null;
+      }
       audioRef.current.volume = volume;
     }
-  }, [volume]);
+  }, [volume, isPlaying]);
 
   // Clean up on component unmount
   useEffect(() => {
     return () => {
+      if (fadeIntervalRef.current) {
+        clearInterval(fadeIntervalRef.current);
+      }
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -120,7 +178,7 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
       <button
         id="btn-play-pause-music"
         onClick={() => onTogglePlay(!isPlaying)}
-        className="p-1.5 rounded-full text-plum hover:bg-rose-layer/30 transition-colors duration-300"
+        className="p-1.5 rounded-full text-plum hover:bg-rose-layer/30 transition-colors duration-300 cursor-pointer"
         aria-label={isPlaying ? 'Pause music' : 'Play music'}
       >
         {isPlaying ? (
@@ -140,7 +198,7 @@ export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlaye
       <button
         id="btn-mute-music"
         onClick={toggleMute}
-        className="p-1.5 rounded-full text-plum hover:bg-rose-layer/30 transition-colors duration-300"
+        className="p-1.5 rounded-full text-plum hover:bg-rose-layer/30 transition-colors duration-300 cursor-pointer"
         aria-label={volume === 0 ? 'Unmute' : 'Mute'}
       >
         {volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}

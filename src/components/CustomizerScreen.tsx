@@ -5,9 +5,10 @@ import { RotateCcw, Sparkles } from 'lucide-react';
 interface CustomizerScreenProps {
   videoUrl: string;
   onComplete?: () => void;
+  onVideoStateChange?: (playing: boolean) => void;
 }
 
-export default function CustomizerScreen({ videoUrl, onComplete }: CustomizerScreenProps) {
+export default function CustomizerScreen({ videoUrl, onComplete, onVideoStateChange }: CustomizerScreenProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const replayVideo = () => {
@@ -15,6 +16,27 @@ export default function CustomizerScreen({ videoUrl, onComplete }: CustomizerScr
 
     videoRef.current.currentTime = 0;
     void videoRef.current.play();
+  };
+
+  const handlePlay = () => {
+    if (onVideoStateChange) {
+      onVideoStateChange(true);
+    }
+  };
+
+  const handlePause = () => {
+    if (onVideoStateChange) {
+      onVideoStateChange(false);
+    }
+  };
+
+  const handleEnded = () => {
+    if (onVideoStateChange) {
+      onVideoStateChange(false);
+    }
+    if (onComplete) {
+      onComplete();
+    }
   };
 
   return (
@@ -32,11 +54,12 @@ export default function CustomizerScreen({ videoUrl, onComplete }: CustomizerScr
           <video
             ref={videoRef}
             controls
-            autoPlay
             playsInline
             className="w-full h-full object-cover"
             src={videoUrl}
-            onEnded={onComplete}
+            onPlay={handlePlay}
+            onPause={handlePause}
+            onEnded={handleEnded}
           />
 
           <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-md px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-plum/70">

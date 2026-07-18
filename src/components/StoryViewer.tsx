@@ -11,9 +11,10 @@ interface StoryViewerProps {
 	onComplete?: () => void;
 	initialStage?: 'chapters' | 'password' | 'final';
 	onVideoComplete?: () => void;
+	onVideoStateChange?: (playing: boolean) => void;
 }
 
-export default function StoryViewer({ frames, password, videoUrl, onComplete, initialStage, onVideoComplete }: StoryViewerProps) {
+export default function StoryViewer({ frames, password, videoUrl, onComplete, initialStage, onVideoComplete, onVideoStateChange }: StoryViewerProps) {
 	const [frameIndex, setFrameIndex] = useState(0);
 	const [stage, setStage] = useState<'chapters' | 'password' | 'final'>(initialStage || 'chapters');
 	const [entry, setEntry] = useState('');
@@ -140,7 +141,7 @@ export default function StoryViewer({ frames, password, videoUrl, onComplete, in
 				</motion.div>
 			)}
 
-			{stage === 'final' && <CustomizerScreen videoUrl={videoUrl} onComplete={onVideoComplete} />}
+			{stage === 'final' && <CustomizerScreen videoUrl={videoUrl} onComplete={onVideoComplete} onVideoStateChange={onVideoStateChange} />}
 		</AnimatePresence>
 	);
 }

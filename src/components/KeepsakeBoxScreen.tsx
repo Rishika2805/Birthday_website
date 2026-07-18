@@ -1,8 +1,20 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { StoryFrame } from '../types';
-import StoryViewer from './StoryViewer';
 import { ArrowRight } from 'lucide-react';
+
+const StoryViewer = lazy(() => import('./StoryViewer'));
+
+function FallbackLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[40vh]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-4 border-lilac/30 border-t-lilac rounded-full animate-spin" />
+        <p className="font-serif italic text-plum/60 text-sm animate-pulse">Loading chapter book...</p>
+      </div>
+    </div>
+  );
+}
 
 interface KeepsakeBoxScreenProps {
   storyFrames: StoryFrame[];
@@ -42,12 +54,14 @@ export default function KeepsakeBoxScreen({ storyFrames, storyPassword, videoUrl
           </motion.button>
         </motion.div>
       ) : (
-        <StoryViewer
-          frames={storyFrames}
-          password={storyPassword}
-          videoUrl={videoUrl}
-          onComplete={onComplete}
-        />
+        <Suspense fallback={<FallbackLoader />}>
+          <StoryViewer
+            frames={storyFrames}
+            password={storyPassword}
+            videoUrl={videoUrl}
+            onComplete={onComplete}
+          />
+        </Suspense>
       )}
     </div>
   );
