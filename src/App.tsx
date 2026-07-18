@@ -80,7 +80,7 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <MemoriesScreen memories={galleryItems} />
+              <MemoriesScreen memories={galleryItems} onContinue={startReasons} />
             </motion.div>
           )}
 
@@ -92,7 +92,7 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <JourneyScreen reasons={reasons} />
+              <JourneyScreen reasons={reasons} onContinue={startStory} />
             </motion.div>
           )}
 
