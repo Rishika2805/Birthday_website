@@ -8,11 +8,13 @@ interface StoryViewerProps {
 	frames: StoryFrame[];
 	password: string;
 	videoUrl: string;
+	onComplete?: () => void;
+	initialStage?: 'chapters' | 'password' | 'final';
 }
 
-export default function StoryViewer({ frames, password, videoUrl }: StoryViewerProps) {
+export default function StoryViewer({ frames, password, videoUrl, onComplete, initialStage }: StoryViewerProps) {
 	const [frameIndex, setFrameIndex] = useState(0);
-	const [stage, setStage] = useState<'chapters' | 'password' | 'final'>('chapters');
+	const [stage, setStage] = useState<'chapters' | 'password' | 'final'>(initialStage || 'chapters');
 	const [entry, setEntry] = useState('');
 	const [error, setError] = useState('');
 
@@ -65,7 +67,11 @@ export default function StoryViewer({ frames, password, videoUrl }: StoryViewerP
 									if (frameIndex < frames.length - 1) {
 										setFrameIndex((current) => current + 1);
 									} else {
-										setStage('password');
+										if (onComplete) {
+											onComplete();
+										} else {
+											setStage('password');
+										}
 									}
 								}}
 								whileHover={{ scale: 1.03 }}

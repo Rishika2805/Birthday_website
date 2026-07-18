@@ -8,9 +8,10 @@ interface KeepsakeBoxScreenProps {
   storyFrames: StoryFrame[];
   storyPassword: string;
   videoUrl: string;
+  onComplete?: () => void;
 }
 
-export default function KeepsakeBoxScreen({ storyFrames, storyPassword, videoUrl }: KeepsakeBoxScreenProps) {
+export default function KeepsakeBoxScreen({ storyFrames, storyPassword, videoUrl, onComplete }: KeepsakeBoxScreenProps) {
   const [started, setStarted] = useState(false);
 
   return (
@@ -45,6 +46,7 @@ export default function KeepsakeBoxScreen({ storyFrames, storyPassword, videoUrl
           frames={storyFrames}
           password={storyPassword}
           videoUrl={videoUrl}
+          onComplete={onComplete}
         />
       )}
     </div>

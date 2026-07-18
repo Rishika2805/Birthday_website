@@ -8,7 +8,10 @@ import SparkleBackground from './components/SparkleBackground';
 import AudioPlayer from './components/AudioPlayer';
 import { birthdayVideoUrl, galleryItems, reasons, storyFrames, storyPassword } from './data';
 
-type ActiveTab = 'welcome' | 'gallery' | 'reasons' | 'story';
+import MissionComplete from './components/MissionComplete';
+import StoryViewer from './components/StoryViewer';
+
+type ActiveTab = 'welcome' | 'gallery' | 'reasons' | 'story' | 'mission' | 'password';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('welcome');
@@ -108,7 +111,41 @@ export default function App() {
                 storyFrames={storyFrames}
                 storyPassword={storyPassword}
                 videoUrl={birthdayVideoUrl}
+                onComplete={() => setActiveTab('mission')}
               />
+            </motion.div>
+          )}
+
+          {activeTab === 'mission' && (
+            <motion.div
+              key="mission-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5 }}
+            >
+              <MissionComplete
+                onContinue={() => setActiveTab('password')}
+              />
+            </motion.div>
+          )}
+
+          {activeTab === 'password' && (
+            <motion.div
+              key="password-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="max-w-4xl mx-auto px-6 py-12 select-none relative z-10">
+                <StoryViewer
+                  frames={storyFrames}
+                  password={storyPassword}
+                  videoUrl={birthdayVideoUrl}
+                  initialStage="password"
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -149,7 +186,11 @@ export default function App() {
             <button
               id="nav-btn-story"
               onClick={() => setActiveTab('story')}
-              className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${activeTab === 'story' ? 'bg-lilac text-white shadow-md scale-105' : 'text-plum/70 hover:text-lilac'}`}
+              className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+                activeTab === 'story' || activeTab === 'mission' || activeTab === 'password'
+                  ? 'bg-lilac text-white shadow-md scale-105'
+                  : 'text-plum/70 hover:text-lilac'
+              }`}
             >
               Story
             </button>
