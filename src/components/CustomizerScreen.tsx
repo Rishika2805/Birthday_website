@@ -4,9 +4,10 @@ import { RotateCcw, Sparkles } from 'lucide-react';
 
 interface CustomizerScreenProps {
   videoUrl: string;
+  onComplete?: () => void;
 }
 
-export default function CustomizerScreen({ videoUrl }: CustomizerScreenProps) {
+export default function CustomizerScreen({ videoUrl, onComplete }: CustomizerScreenProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const replayVideo = () => {
@@ -35,6 +36,7 @@ export default function CustomizerScreen({ videoUrl }: CustomizerScreenProps) {
             playsInline
             className="w-full h-full object-cover"
             src={videoUrl}
+            onEnded={onComplete}
           />
 
           <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-md px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-plum/70">

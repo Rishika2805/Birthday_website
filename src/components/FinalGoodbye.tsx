@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Sparkles, Gift } from 'lucide-react';
 
 interface FinalGoodbyeProps {
   onFinish: () => void;
@@ -17,7 +16,7 @@ interface FloatingItem {
 }
 
 export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
-  const [isExiting, setIsExiting] = useState(false);
+  const [scene, setScene] = useState<'letter' | 'movie'>('letter');
   const [floatingItems, setFloatingItems] = useState<FloatingItem[]>([]);
 
   useEffect(() => {
@@ -35,13 +34,10 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
   }, []);
 
   const handleFinish = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      onFinish();
-    }, 550);
+    setScene('movie');
   };
 
-  // Animation variants
+  // Animation variants for the letter screen
   const pageVariants = {
     hidden: { opacity: 0, scale: 0.98 },
     visible: {
@@ -57,7 +53,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
       opacity: 0,
       scale: 0.97,
       y: -10,
-      transition: { duration: 0.5, ease: 'easeInOut' }
+      transition: { duration: 0.6, ease: 'easeInOut' }
     }
   };
 
@@ -115,11 +111,47 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     }
   };
 
+  // Movie scene animation variants
+  const movieContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 1.2, ease: 'easeOut' }
+    }
+  };
+
+  const textLine1Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 1.0, duration: 1.8, ease: 'easeInOut' }
+    }
+  };
+
+  const textLine2Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 3.2, duration: 1.8, ease: 'easeInOut' }
+    }
+  };
+
+  const textLine3Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 5.4, duration: 1.8, ease: 'easeInOut' }
+    }
+  };
+
   return (
-    <AnimatePresence>
-      {!isExiting && (
+    <AnimatePresence mode="wait">
+      {scene === 'letter' ? (
         <motion.div
-          id="final-goodbye-root"
+          key="letter-scene"
           variants={pageVariants}
           initial="hidden"
           animate="visible"
@@ -158,8 +190,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-rose-500/20">
                     <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
                   </svg>
-                )
-                }
+                )}
               </motion.div>
             ))}
             {/* Glowing background shapes */}
@@ -236,17 +267,46 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
             {/* Bottom Button */}
             <motion.div variants={buttonVariants} className="pt-2 flex justify-center">
               <button
-                id="btn-final-surprise"
+                id="btn-final-end"
                 onClick={handleFinish}
                 className="px-8 py-3.5 bg-lilac hover:bg-lilac-hover text-white font-sans text-xs font-semibold tracking-widest rounded-full uppercase transition-all duration-300 shadow-md cursor-pointer flex items-center gap-2"
                 style={{
                   boxShadow: '0px 4px 15px rgba(183, 139, 191, 0.25)'
                 }}
               >
-                One Last Surprise <Gift size={15} />
+                The End ❤️
               </button>
             </motion.div>
 
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          key="movie-scene"
+          variants={movieContainerVariants}
+          initial="hidden"
+          animate="visible"
+          className="fixed inset-0 bg-[#000000] z-50 flex flex-col items-center justify-center text-center px-6 select-none"
+        >
+          <div className="space-y-8 max-w-lg">
+            <motion.p
+              variants={textLine1Variants}
+              className="font-serif italic text-2xl md:text-3xl text-[#F5F5F5] drop-shadow-[0_0_12px_rgba(245,245,245,0.25)]"
+            >
+              The End...
+            </motion.p>
+            <motion.p
+              variants={textLine2Variants}
+              className="font-serif italic text-xl md:text-2xl text-[#F5F5F5]/80 drop-shadow-[0_0_8px_rgba(245,245,245,0.15)]"
+            >
+              ...or maybe just the beginning.
+            </motion.p>
+            <motion.p
+              variants={textLine3Variants}
+              className="font-serif italic text-3xl md:text-4xl text-[#F5F5F5] font-semibold drop-shadow-[0_0_15px_rgba(245,245,245,0.4)]"
+            >
+              Happy Birthday ❤️
+            </motion.p>
           </div>
         </motion.div>
       )}

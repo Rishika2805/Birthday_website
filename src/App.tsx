@@ -10,8 +10,9 @@ import { birthdayVideoUrl, galleryItems, reasons, storyFrames, storyPassword } f
 
 import MissionComplete from './components/MissionComplete';
 import StoryViewer from './components/StoryViewer';
+import FinalGoodbye from './components/FinalGoodbye';
 
-type ActiveTab = 'welcome' | 'gallery' | 'reasons' | 'story' | 'mission' | 'password';
+type ActiveTab = 'welcome' | 'gallery' | 'reasons' | 'story' | 'mission' | 'password' | 'goodbye';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('welcome');
@@ -144,8 +145,25 @@ export default function App() {
                   password={storyPassword}
                   videoUrl={birthdayVideoUrl}
                   initialStage="password"
+                  onVideoComplete={() => setActiveTab('goodbye')}
                 />
               </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'goodbye' && (
+            <motion.div
+              key="goodbye-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5 }}
+            >
+              <FinalGoodbye
+                onFinish={() => {
+                  setActiveTab('welcome');
+                }}
+              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -187,7 +205,7 @@ export default function App() {
               id="nav-btn-story"
               onClick={() => setActiveTab('story')}
               className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
-                activeTab === 'story' || activeTab === 'mission' || activeTab === 'password'
+                activeTab === 'story' || activeTab === 'mission' || activeTab === 'password' || activeTab === 'goodbye'
                   ? 'bg-lilac text-white shadow-md scale-105'
                   : 'text-plum/70 hover:text-lilac'
               }`}

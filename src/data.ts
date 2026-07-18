@@ -75,16 +75,16 @@ export const reasons = reasonSeeds.flatMap((reason) =>
 );
 
 export const storyFrames: StoryFrame[] = [
-  { id: 'story-1', chapterTitle: 'The First Warm Spark', narration: 'Some stories begin quietly, and then suddenly they glow. Yours did that for me almost right away.', illustrationSrc: storyImages[0], illustrationAlt: 'Story frame 1' },
-  { id: 'story-2', chapterTitle: 'A Voice Across the Distance', narration: 'Even when miles stood between us, your words made the world feel close and beautifully possible.', illustrationSrc: storyImages[1], illustrationAlt: 'Story frame 2' },
-  { id: 'story-3', chapterTitle: 'Little Moments, Kept Carefully', narration: 'I kept the smallest moments because they already felt too precious to forget.', illustrationSrc: storyImages[2], illustrationAlt: 'Story frame 3' },
-  { id: 'story-4', chapterTitle: 'The Boy I Fell For', narration: 'The more I knew you, the easier it became to fall for the kindness hiding inside every detail of you.', illustrationSrc: storyImages[3], illustrationAlt: 'Story frame 4' },
-  { id: 'story-5', chapterTitle: 'Quiet Comforts', narration: 'You made softness feel safe, and every quiet day feel a little more like home.', illustrationSrc: storyImages[4], illustrationAlt: 'Story frame 5' },
-  { id: 'story-6', chapterTitle: 'Distance Could Not Win', narration: 'The space between us never mattered as much as the way our hearts kept reaching for each other.', illustrationSrc: storyImages[5], illustrationAlt: 'Story frame 6' },
-  { id: 'story-7', chapterTitle: 'The Sweetest Routine', narration: 'Some of my favorite love stories live inside the ordinary things, like checking in, laughing, and being known.', illustrationSrc: storyImages[6], illustrationAlt: 'Story frame 7' },
-  { id: 'story-8', chapterTitle: 'Always Soft for You', narration: 'There is a tenderness in the way you exist that makes me want to hold every moment a little longer.', illustrationSrc: storyImages[7], illustrationAlt: 'Story frame 8' },
-  { id: 'story-9', chapterTitle: 'A Future in Bloom', narration: 'When I think about what comes next, I always imagine more warmth, more laughter, and more us.', illustrationSrc: storyImages[8], illustrationAlt: 'Story frame 9' },
-  { id: 'story-10', chapterTitle: 'And the Story Keeps Going', narration: 'This is only one chapter, but it already feels like one of the most beautiful things I have ever held.', illustrationSrc: storyImages[9], illustrationAlt: 'Story frame 10' }
+  { id: 'story-1', chapterTitle: 'The First Warm Spark', narration: 'Living hundreds of miles apart in different cities, our story began with a chance meeting through a mutual friend in BGMI.', illustrationSrc: storyImages[0], illustrationAlt: 'Story frame 1' },
+  { id: 'story-2', chapterTitle: 'A Voice Across the Distance', narration: 'A simple friend request turned two strangers into gaming buddies who started spending time together online.', illustrationSrc: storyImages[1], illustrationAlt: 'Story frame 2' },
+  { id: 'story-3', chapterTitle: 'Little Moments, Kept Carefully', narration: 'While playing together regularly, I admired his quiet nature, kindness, and respectful personality from afar.', illustrationSrc: storyImages[2], illustrationAlt: 'Story frame 3' },
+  { id: 'story-4', chapterTitle: 'The Boy I Fell For', narration: 'As life became difficult for both of us, we slowly began sharing our relationship struggles and emotions with each other.', illustrationSrc: storyImages[3], illustrationAlt: 'Story frame 4' },
+  { id: 'story-5', chapterTitle: 'Quiet Comforts', narration: 'During heartbreaks and stressful exam days, we stood by one another with constant support and encouragement.', illustrationSrc: storyImages[4], illustrationAlt: 'Story frame 5' },
+  { id: 'story-6', chapterTitle: 'Distance Could Not Win', narration: 'What started inside a game soon grew into daily conversations about our lives, dreams, fears, and future hopes.', illustrationSrc: storyImages[5], illustrationAlt: 'Story frame 6' },
+  { id: 'story-7', chapterTitle: 'The Sweetest Routine', narration: "Without realizing it, we became each other's safe place—the first person we wanted to talk to every day.", illustrationSrc: storyImages[6], illustrationAlt: 'Story frame 7' },
+  { id: 'story-8', chapterTitle: 'Always Soft for You', narration: 'Through late-night calls, endless conversations, and unwavering support, friendship quietly blossomed into love.', illustrationSrc: storyImages[7], illustrationAlt: 'Story frame 8' },
+  { id: 'story-9', chapterTitle: 'A Future in Bloom', narration: 'The boy I once knew only through a game became the person I trusted most and held closest to my heart.', illustrationSrc: storyImages[8], illustrationAlt: 'Story frame 9' },
+  { id: 'story-10', chapterTitle: 'And the Story Keeps Going', narration: 'Today, despite the distance between our cities, we continue to grow together in a loving long-distance relationship built on trust, friendship, and love.', illustrationSrc: storyImages[9], illustrationAlt: 'Story frame 10' }
 ];
 
 export const storyPassword = '2804';
