@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "EB Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --color-canvas: #FBEFEF;
+  --color-plum: #3B2E35;
+  --color-lilac: #B78BBF;
+  --color-lilac-hover: #A57DB0;
+  --color-rose-layer: #F5D8D8;
+  --color-rose-border: #EDC0C0;
+  --color-sparkle: #B8A6CC;
+}
+
+/* Custom CSS helper utilities for scrollbar and 3D perspective */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(183, 139, 191, 0.3);
+  border-radius: 999px;
+}
+

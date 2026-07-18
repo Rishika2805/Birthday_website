@@ -1,0 +1,6 @@
+{
+  "name": "Serene Keepsake",
+  "description": "A beautiful, premium digital heirloom keepsake and birthday storybook to celebrate shared memories, journeys, and milestone events.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
