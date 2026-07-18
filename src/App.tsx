@@ -5,6 +5,7 @@ import MemoriesScreen from './components/MemoriesScreen';
 import JourneyScreen from './components/JourneyScreen';
 import KeepsakeBoxScreen from './components/KeepsakeBoxScreen';
 import SparkleBackground from './components/SparkleBackground';
+import FloatingHearts from './components/FloatingHearts';
 import AudioPlayer from './components/AudioPlayer';
 import { birthdayVideoUrl, galleryItems, reasons, storyFrames, storyPassword } from './data';
 
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <div id="heirloom-app-root" className="min-h-screen bg-[#FBEFEF] text-plum relative overflow-x-hidden flex flex-col font-sans transition-colors duration-500">
       <SparkleBackground />
+      <FloatingHearts />
 
       <AudioPlayer
         isPlaying={musicPlaying}

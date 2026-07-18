@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Heart } from 'lucide-react';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
@@ -92,11 +92,13 @@ function Candle({ lit, leftPercent, topPercent }: CandleProps) {
   );
 }
 
+
 export default function IntroScreen({ onStart }: IntroScreenProps) {
   const [candlesState, setCandlesState] = useState([true, true, true, true, true]);
   const [isBlowing, setIsBlowing] = useState(false);
   const [wishGranted, setWishGranted] = useState(false);
   const [confettiInstance, setConfettiInstance] = useState<any>(null);
+
 
   const onConfettiInit = ({ confetti }: { confetti: any }) => {
     setConfettiInstance(() => confetti);
@@ -166,6 +168,8 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
 
   return (
     <div id="intro-screen-container" className="flex flex-col min-h-[90vh] justify-between relative px-6 md:px-12 py-8 z-10 max-w-lg mx-auto select-none">
+
+
       {/* react-canvas-confetti */}
       <ReactCanvasConfetti
         onInit={onConfettiInit}
