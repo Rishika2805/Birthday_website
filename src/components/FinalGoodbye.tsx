@@ -217,31 +217,32 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
                 
                 {/* Salutation */}
                 <motion.p variants={paragraphVariants} className="font-bold">
-                  To my favorite teammate and favorite person,
+                  Dear Verma Ji,
                 </motion.p>
 
                 {/* Paragraph 1 */}
                 <motion.p variants={paragraphVariants}>
-                  This is the space where you can write your personal letter to him later. 
-                  Share a special memory of how you met, what you felt during your first 
-                  match together, or some words about the distance and how much he means 
-                  to you. Make this section as emotional and heartfelt as you want.
+                  Hmmmm..... Toh kaisa laga mera surprise?? I hope apko pasand aaya hoga. Bhot mehnat lag gya yrrrr...... BC itna mehnat toh pehli bar karre kisi ke liye ham but maja toh ayya bhot maja aaya or bhot excited bhi hai apko dikhane ke liye... Again wishing you a very very very very happiiii birthdayyyyy... Lots of love.... khush rahe, muskurate rahe... sada suhagan rahe... apki shadi nhi hui phir bhi rahe.... or aage badhte rahe....
                 </motion.p>
 
                 {/* Paragraph 2 */}
                 <motion.p variants={paragraphVariants}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum 
-                  placerat rhoncus. Mauris et mi congue, iaculis erat non, bibendum ipsum. 
-                  Fusce sodales, ex vel vulputate consequat, arcu magna tempor purus, ut 
-                  pretium leo magna quis urna.
+                  I hope ki ham apka birthday special bana pay hoo. I know expensive gifts toh nhi de sakte but still tried my best (Tech peeps and A girl who likes craft ). I know ham kabhi kabhi bhot gussa kar dete bhot naraz ho jate but aapse nhi toh or kisse But still I am trying my best to keep my anger in check soo please cooperate haan....
                 </motion.p>
 
                 {/* Paragraph 3 */}
                 <motion.p variants={paragraphVariants}>
-                  Nullam euismod, nisl ac aliquet eleifend, magna diam ultrices nibh, 
-                  id rhoncus sapien libero ut elit. Curabitur vitae egestas risus. Mauris 
-                  cursus sit amet leo at sollicitudin. Proin feugiat, justo quis sodales 
-                  mattis, eros diam egestas turpis, a commodo ipsum erat ut metus.
+                  Its your birthday today ghume phire aish kre maje kre or haan hamko party dena na bhule okieee.... and padhai kre man laga ki iss saal kaise bhi karke khudko prove karna hai ham dono ko khudke liye bhi or ekk dushre ke liye bhi taki koi dushra hamper ungli na utha pay or yuppp agar nhi bhi hua toh koi baat nhi I know you are strong koi na koi trika aap jarur nikal loge and always remember I am with you always chahe jo bhi condition hoo apko samjhayenge , baat sunayenge , darayenge but rahegnge toh apke sath hi ,aab dushra boyfriend kon hi khoje itna mehnat kon kre..... (hehhehehhehe joking joking) toh bas ashai muskurate rahe haste rahe aage badhe
+                </motion.p>
+
+                {/* Paragraph 4 */}
+                <motion.p variants={paragraphVariants}>
+                  or jab bhi lage ki nhi hora toh khudko ekk ye remind karway ki apke pass ham hai sath dene ko toh phir kis baat ka tension nhi kuch hoga toh sath me momos ka shop khol lenge ( BC bhot paisa hai isme bhi ) bas tension and stress nhi lena hamseha aage badhte rehna....
+                </motion.p>
+
+                {/* Paragraph 5 */}
+                <motion.p variants={paragraphVariants}>
+                  Kuch jyda hi bak bak kar diya maine.... aaj ke liye bas itna hi.... HAPPY BIRTHDAY NAMAN :)
                 </motion.p>
 
                 {/* Sign-off */}

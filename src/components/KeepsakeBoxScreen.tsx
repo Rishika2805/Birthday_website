@@ -24,8 +24,8 @@ export default function KeepsakeBoxScreen({ storyFrames, storyPassword, videoUrl
           className="text-center space-y-6"
         >
           <div className="space-y-3">
-            <span className="font-sans text-xs uppercase tracking-[0.25em] font-semibold text-lilac block">Our Story</span>
             <h2 className="font-serif text-3xl md:text-4xl italic text-plum font-normal">Our Story</h2>
+            <p className="font-serif text-lg md:text-xl italic text-plum/70 font-normal -mt-1">More than just a Teammate</p>
             <p className="font-sans text-[15px] text-plum/60 max-w-md mx-auto leading-relaxed">
               A little chapter book for a very big heart.
             </p>

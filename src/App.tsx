@@ -50,7 +50,7 @@ export default function App() {
               onClick={() => setActiveTab('welcome')}
               className="flex items-center gap-2 text-plum group cursor-pointer focus:outline-none"
             >
-              <span className="font-serif text-xl font-medium italic tracking-wide group-hover:text-lilac transition-colors">Our Story</span>
+              <span className="font-serif text-xl font-medium italic tracking-wide group-hover:text-lilac transition-colors">Our Story — More than just a Teammate</span>
             </button>
 
             <div className="flex items-center gap-3">
