@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Lock, ArrowRight, Sparkles } from 'lucide-react';
 import CustomizerScreen from './CustomizerScreen';
 import type { StoryFrame } from '../types';

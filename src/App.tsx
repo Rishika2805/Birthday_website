@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import IntroScreen from './components/IntroScreen';
 import MemoriesScreen from './components/MemoriesScreen';
 import JourneyScreen from './components/JourneyScreen';
@@ -185,7 +185,7 @@ export default function App() {
             <button
               id="nav-btn-welcome"
               onClick={() => setActiveTab('welcome')}
-              className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${activeTab === 'welcome' ? 'bg-lilac text-white shadow-md scale-105' : 'text-plum/70 hover:text-lilac'}`}
+              className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${(activeTab as string) === 'welcome' ? 'bg-lilac text-white shadow-md scale-105' : 'text-plum/70 hover:text-lilac'}`}
             >
               Home
             </button>

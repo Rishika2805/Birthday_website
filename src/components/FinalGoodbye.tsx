@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FinalGoodbyeProps {
   onFinish: () => void;
@@ -45,7 +45,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
       scale: 1,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
         staggerChildren: 0.25
       }
     },
@@ -53,7 +53,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
       opacity: 0,
       scale: 0.97,
       y: -10,
-      transition: { duration: 0.6, ease: 'easeInOut' }
+      transition: { duration: 0.6, ease: 'easeInOut' as const }
     }
   };
 
@@ -62,7 +62,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: 'easeOut' as const }
     }
   };
 
@@ -71,7 +71,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: 'easeOut' }
+      transition: { duration: 0.7, ease: 'easeOut' as const }
     }
   };
 
@@ -80,7 +80,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
+      transition: { duration: 0.5, ease: 'easeOut' as const }
     }
   };
 
@@ -98,7 +98,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { delay: 2.3, duration: 0.6, type: 'spring', stiffness: 90 }
+      transition: { delay: 2.3, duration: 0.6, type: 'spring' as const, stiffness: 90 }
     }
   };
 
@@ -107,7 +107,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { delay: 2.8, type: 'spring', stiffness: 100 }
+      transition: { delay: 2.8, type: 'spring' as const, stiffness: 100 }
     }
   };
 
@@ -116,7 +116,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 1.2, ease: 'easeOut' }
+      transition: { duration: 1.2, ease: 'easeOut' as const }
     }
   };
 
@@ -125,7 +125,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: 1.0, duration: 1.8, ease: 'easeInOut' }
+      transition: { delay: 1.0, duration: 1.8, ease: 'easeInOut' as const }
     }
   };
 
@@ -134,7 +134,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: 3.2, duration: 1.8, ease: 'easeInOut' }
+      transition: { delay: 3.2, duration: 1.8, ease: 'easeInOut' as const }
     }
   };
 
@@ -143,7 +143,7 @@ export default function FinalGoodbye({ onFinish }: FinalGoodbyeProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: 5.4, duration: 1.8, ease: 'easeInOut' }
+      transition: { delay: 5.4, duration: 1.8, ease: 'easeInOut' as const }
     }
   };
 

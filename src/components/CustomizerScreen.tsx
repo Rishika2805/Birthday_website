@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { RotateCcw, Sparkles } from 'lucide-react';
 
 interface CustomizerScreenProps {

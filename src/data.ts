@@ -1,4 +1,6 @@
+/// <reference types="vite/client" />
 import type { GalleryItem, StoryFrame } from './types';
+
 
 const galleryImageModules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,webp}', {
   eager: true,

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Gamepad2, Heart, Trophy, Sparkles, Award, ArrowDown } from 'lucide-react';
 
 interface MissionCompleteProps {
@@ -24,7 +24,7 @@ export default function MissionComplete({ onContinue }: MissionCompleteProps) {
       scale: 1,
       transition: {
         duration: 0.65,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
         staggerChildren: 0.18
       }
     },
@@ -32,7 +32,7 @@ export default function MissionComplete({ onContinue }: MissionCompleteProps) {
       opacity: 0,
       scale: 0.94,
       y: -10,
-      transition: { duration: 0.5, ease: 'easeInOut' }
+      transition: { duration: 0.5, ease: 'easeInOut' as const }
     }
   };
 
@@ -41,7 +41,7 @@ export default function MissionComplete({ onContinue }: MissionCompleteProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
+      transition: { duration: 0.5, ease: 'easeOut' as const }
     }
   };
 
@@ -49,7 +49,7 @@ export default function MissionComplete({ onContinue }: MissionCompleteProps) {
     hidden: { scaleX: 0 },
     visible: {
       scaleX: 1,
-      transition: { duration: 0.8, ease: 'easeInOut' }
+      transition: { duration: 0.8, ease: 'easeInOut' as const }
     }
   };
 
@@ -59,7 +59,7 @@ export default function MissionComplete({ onContinue }: MissionCompleteProps) {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { type: 'spring', stiffness: 90, damping: 14, delay: 1.1 }
+      transition: { type: 'spring' as const, stiffness: 90, damping: 14, delay: 1.1 }
     }
   };
 

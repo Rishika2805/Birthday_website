@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { StoryFrame } from '../types';
 import StoryViewer from './StoryViewer';
 import { ArrowRight } from 'lucide-react';
