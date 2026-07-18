@@ -26,19 +26,19 @@ export default function MemoriesScreen({ memories, onContinue }: MemoriesScreenP
       memories.map((memory, index) => ({
         ...memory,
         tilt: memory.rotation ?? [-4, 3, -2, 4, -3, 2][index % 6],
-        delay: index * 0.18,
+        delay: index * 0.10, // Snappier delay
         captionClass: captionStyles[index % captionStyles.length]
       })),
     [memories]
   );
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setShowContinue(true), gallery.length * 180 + 900);
+    const timeout = window.setTimeout(() => setShowContinue(true), gallery.length * 100 + 900);
     return () => window.clearTimeout(timeout);
   }, [gallery.length]);
 
   return (
-    <div id="memories-screen-container" className="max-w-6xl mx-auto px-4 md:px-8 py-12 select-none z-10 relative">
+    <div id="memories-screen-container" className="max-w-6xl mx-auto px-4 md:px-8 pt-12 pb-48 select-none z-10 relative">
       <div className="text-center mb-14 space-y-4">
         <span className="block font-sans text-[11px] font-semibold tracking-[0.35em] uppercase text-lilac">
           A LITTLE GALLERY
@@ -61,13 +61,10 @@ export default function MemoriesScreen({ memories, onContinue }: MemoriesScreenP
             animate={{ opacity: 1, y: 0, rotate: memory.tilt, scale: 1 }}
             transition={{
               delay: memory.delay,
-              duration: 0.9,
-              type: 'spring',
-              stiffness: 120,
-              damping: 12,
-              bounce: 0.45
+              duration: 0.6,
+              ease: 'easeOut'
             }}
-            whileHover={{ y: -8, rotate: 0, scale: 1.02 }}
+            whileHover={{ y: -8, rotate: 0, scale: 1.02, zIndex: 30 }}
             className="relative bg-white/95 p-5 pb-7 rounded-[1.4rem] border border-white/70 shadow-[0_18px_45px_rgba(59,46,53,0.10)]"
             style={{ boxShadow: '0px 10px 40px rgba(59, 46, 53, 0.06)' }}
           >
