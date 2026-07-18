@@ -1,26 +1,43 @@
-import { StoryFrame } from './types';
+import type { GalleryItem, StoryFrame } from './types';
 
-export const photos = [
-  'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=900',
-  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=900'
-];
+const galleryImageModules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+  import: 'default'
+}) as Record<string, string>;
 
-export const captions = [
-  'That smile ❤️',
-  'My favorite picture.',
-  'Looking handsome as always.',
-  'I could stare at this forever.',
-  'Still my favorite human.',
-  'My heart always softens here.',
-  'You make every frame feel warmer.',
-  'The kind of face I never forget.'
-];
+const storyImageModules = import.meta.glob('../assets/story/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+  import: 'default'
+}) as Record<string, string>;
+
+function extractSortKey(filePath: string) {
+  const fileName = filePath.split('/').pop() ?? '';
+  const match = fileName.match(/(\d+)/);
+  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+}
+
+const galleryImages = Object.entries(galleryImageModules)
+  .sort(([leftPath], [rightPath]) => extractSortKey(leftPath) - extractSortKey(rightPath))
+  .map(([, value]) => value)
+  .slice(0, 5);
+
+const storyImages = Object.entries(storyImageModules)
+  .sort(([leftPath], [rightPath]) => extractSortKey(leftPath) - extractSortKey(rightPath))
+  .map(([, value]) => value)
+  .slice(0, 10);
+
+export const galleryItems: GalleryItem[] = galleryImages.map((image, index) => ({
+  id: `photo-${index + 1}`,
+  image,
+  caption: [
+    'That smile',
+    'My favorite picture.',
+    'Looking handsome as always.',
+    'I could stare at this forever.',
+    'Still my favorite human.'
+  ][index],
+  rotation: [-4, 3, -2, 4, -3][index]
+}));
 
 const reasonSeeds = [
   'Your laugh makes every room feel lighter.',
@@ -58,17 +75,17 @@ export const reasons = reasonSeeds.flatMap((reason) =>
 );
 
 export const storyFrames: StoryFrame[] = [
-  { id: 'story-1', illustration: '💌', text: 'Some stories begin quietly, and then suddenly they glow. Yours did that for me almost right away.' },
-  { id: 'story-2', illustration: '🌙', text: 'Even when miles stood between us, your words made the world feel close and beautifully possible.' },
-  { id: 'story-3', illustration: '☕', text: 'I kept the smallest moments because they already felt too precious to forget.' },
-  { id: 'story-4', illustration: '❤️', text: 'The more I knew you, the easier it became to fall for the kindness hiding inside every detail of you.' },
-  { id: 'story-5', illustration: '✨', text: 'You made softness feel safe, and every quiet day feel a little more like home.' },
-  { id: 'story-6', illustration: '🌸', text: 'The space between us never mattered as much as the way our hearts kept reaching for each other.' },
-  { id: 'story-7', illustration: '🎀', text: 'Some of my favorite love stories live inside the ordinary things, like checking in, laughing, and being known.' },
-  { id: 'story-8', illustration: '💞', text: 'There is a tenderness in the way you exist that makes me want to hold every moment a little longer.' },
-  { id: 'story-9', illustration: '🌷', text: 'When I think about what comes next, I always imagine more warmth, more laughter, and more us.' },
-  { id: 'story-10', illustration: '🎂', text: 'This is only one chapter, but it already feels like one of the most beautiful things I have ever held.' }
+  { id: 'story-1', chapterTitle: 'The First Warm Spark', narration: 'Some stories begin quietly, and then suddenly they glow. Yours did that for me almost right away.', illustrationSrc: storyImages[0], illustrationAlt: 'Story frame 1' },
+  { id: 'story-2', chapterTitle: 'A Voice Across the Distance', narration: 'Even when miles stood between us, your words made the world feel close and beautifully possible.', illustrationSrc: storyImages[1], illustrationAlt: 'Story frame 2' },
+  { id: 'story-3', chapterTitle: 'Little Moments, Kept Carefully', narration: 'I kept the smallest moments because they already felt too precious to forget.', illustrationSrc: storyImages[2], illustrationAlt: 'Story frame 3' },
+  { id: 'story-4', chapterTitle: 'The Boy I Fell For', narration: 'The more I knew you, the easier it became to fall for the kindness hiding inside every detail of you.', illustrationSrc: storyImages[3], illustrationAlt: 'Story frame 4' },
+  { id: 'story-5', chapterTitle: 'Quiet Comforts', narration: 'You made softness feel safe, and every quiet day feel a little more like home.', illustrationSrc: storyImages[4], illustrationAlt: 'Story frame 5' },
+  { id: 'story-6', chapterTitle: 'Distance Could Not Win', narration: 'The space between us never mattered as much as the way our hearts kept reaching for each other.', illustrationSrc: storyImages[5], illustrationAlt: 'Story frame 6' },
+  { id: 'story-7', chapterTitle: 'The Sweetest Routine', narration: 'Some of my favorite love stories live inside the ordinary things, like checking in, laughing, and being known.', illustrationSrc: storyImages[6], illustrationAlt: 'Story frame 7' },
+  { id: 'story-8', chapterTitle: 'Always Soft for You', narration: 'There is a tenderness in the way you exist that makes me want to hold every moment a little longer.', illustrationSrc: storyImages[7], illustrationAlt: 'Story frame 8' },
+  { id: 'story-9', chapterTitle: 'A Future in Bloom', narration: 'When I think about what comes next, I always imagine more warmth, more laughter, and more us.', illustrationSrc: storyImages[8], illustrationAlt: 'Story frame 9' },
+  { id: 'story-10', chapterTitle: 'And the Story Keeps Going', narration: 'This is only one chapter, but it already feels like one of the most beautiful things I have ever held.', illustrationSrc: storyImages[9], illustrationAlt: 'Story frame 10' }
 ];
 
-export const storyPassword = 'starlight';
+export const storyPassword = '2804';
 export const birthdayVideoUrl = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';

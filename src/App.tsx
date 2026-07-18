@@ -6,7 +6,7 @@ import JourneyScreen from './components/JourneyScreen';
 import KeepsakeBoxScreen from './components/KeepsakeBoxScreen';
 import SparkleBackground from './components/SparkleBackground';
 import AudioPlayer from './components/AudioPlayer';
-import { birthdayVideoUrl, captions, photos, reasons, storyFrames, storyPassword } from './data';
+import { birthdayVideoUrl, galleryItems, reasons, storyFrames, storyPassword } from './data';
 
 type ActiveTab = 'welcome' | 'gallery' | 'reasons' | 'story';
 
@@ -80,16 +80,7 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <MemoriesScreen memories={photos.map((photo, index) => ({
-                id: `photo-${index}`,
-                title: captions[index] ?? '',
-                description: captions[index] ?? '',
-                backstory: '',
-                date: '',
-                category: '',
-                imageUrl: photo,
-                rotation: [-4, 3, -2, 4, -3, 2, -1, 1][index % 8]
-              })) as any} onAddMemory={() => undefined} />
+              <MemoriesScreen memories={galleryItems} />
             </motion.div>
           )}
 

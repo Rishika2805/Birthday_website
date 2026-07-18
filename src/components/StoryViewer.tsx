@@ -51,17 +51,12 @@ export default function StoryViewer({ frames, password, videoUrl }: StoryViewerP
 					</div>
 
 					<div className="bg-white/55 backdrop-blur-md border border-white/30 rounded-[2rem] p-6 md:p-8 shadow-[0px_15px_45px_rgba(59,46,53,0.08)]">
-						<div className="aspect-[16/10] rounded-[1.5rem] bg-gradient-to-br from-rose-layer/70 via-white to-[#F6E8F2] border border-[#EDC0C0]/40 flex items-center justify-center mb-6 relative overflow-hidden">
-							<div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.95),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(183,139,191,0.18),_transparent_40%)]" />
-							<div className="relative text-center space-y-4">
-								<div className="mx-auto h-28 w-28 rounded-full bg-white/70 border border-white/80 shadow-lg flex items-center justify-center text-5xl">
-									{frame.illustration}
-								</div>
-							</div>
+						<div className="aspect-[3/5] max-w-[320px] mx-auto rounded-[1.5rem] bg-gradient-to-br from-rose-layer/70 via-white to-[#F6E8F2] border border-[#EDC0C0]/40 flex items-center justify-center mb-6 relative overflow-hidden">
+							<img src={frame.illustrationSrc} alt={frame.illustrationAlt} className="w-full h-full object-cover" />
 						</div>
 
 						<p className="font-serif text-[19px] md:text-[21px] leading-relaxed italic text-plum/85 text-center max-w-xl mx-auto">
-							{frame.text}
+							{frame.narration}
 						</p>
 
 						<div className="pt-6 text-center">

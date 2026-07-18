@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'motion/react';
 interface MemoriesScreenProps {
   memories: Array<{
     id: string;
-    imageUrl: string;
-    title: string;
+    image: string;
+    caption: string;
     rotation: number;
   }>;
   onContinue?: () => void;
@@ -25,7 +25,6 @@ export default function MemoriesScreen({ memories, onContinue }: MemoriesScreenP
     () =>
       memories.map((memory, index) => ({
         ...memory,
-        caption: memory.title || memory.description,
         tilt: memory.rotation ?? [-4, 3, -2, 4, -3, 2][index % 6],
         delay: index * 0.18,
         captionClass: captionStyles[index % captionStyles.length]
@@ -74,8 +73,8 @@ export default function MemoriesScreen({ memories, onContinue }: MemoriesScreenP
           >
             <div className="aspect-[4/5] w-full overflow-hidden rounded-[1rem] bg-rose-layer/10">
               <img
-                src={memory.imageUrl}
-                alt={memory.title}
+                src={memory.image}
+                alt={memory.caption}
                 referrerPolicy="no-referrer"
                 className="h-full w-full object-cover"
               />
