@@ -67,6 +67,10 @@ export default function StoryViewer({ frames, password, videoUrl, onComplete, in
 								onClick={() => {
 									if (frameIndex < frames.length - 1) {
 										setFrameIndex((current) => current + 1);
+										window.scrollTo({
+											top: 0,
+											behavior: 'auto'
+										});
 									} else {
 										if (onComplete) {
 											onComplete();

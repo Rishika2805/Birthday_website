@@ -7,22 +7,38 @@ interface AudioPlayerProps {
   trackUrl: string;
 }
 
-export default function AudioPlayer({ isPlaying, onTogglePlay, trackUrl }: AudioPlayerProps) {
-  const [volume, setVolume] = useState(0.4);
+// @ts-ignore
+import backgroundMusic from '../../assets/song/Until_I_Found_You.mpeg';
+
+export default function AudioPlayer({ isPlaying, onTogglePlay }: Omit<AudioPlayerProps, 'trackUrl'> & { trackUrl?: string }) {
+  const [volume, setVolume] = useState(0.35);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Initialize the single audio instance if it doesn't exist
+  if (!audioRef.current) {
+    audioRef.current = new Audio(backgroundMusic);
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.35;
+  }
+
+  // Start playing after the user's first interaction anywhere on screen
   useEffect(() => {
-    // Create audio element
-    const audio = new Audio(trackUrl);
-    audio.loop = true;
-    audio.volume = volume;
-    audioRef.current = audio;
+    const handleFirstInteraction = () => {
+      if (!isPlaying) {
+        onTogglePlay(true);
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
 
     return () => {
-      audio.pause();
-      audioRef.current = null;
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
     };
-  }, [trackUrl]);
+  }, [isPlaying, onTogglePlay]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -42,11 +58,22 @@ export default function AudioPlayer({ isPlaying, onTogglePlay, trackUrl }: Audio
     }
   }, [volume]);
 
+  // Clean up on component unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
+
   const toggleMute = () => {
     if (volume > 0) {
       setVolume(0);
+      onTogglePlay(false);
     } else {
-      setVolume(0.4);
+      setVolume(0.35);
+      onTogglePlay(true);
     }
   };
 
