@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { RotateCcw, Sparkles } from 'lucide-react';
+import VideoPoster from '../../assets/video/Video_Poster.png';
 
 interface CustomizerScreenProps {
   videoUrl: string;
@@ -57,6 +58,7 @@ export default function CustomizerScreen({ videoUrl, onComplete, onVideoStateCha
             playsInline
             className="w-full h-full object-cover"
             src={videoUrl}
+            poster={VideoPoster}
             onPlay={handlePlay}
             onPause={handlePause}
             onEnded={handleEnded}

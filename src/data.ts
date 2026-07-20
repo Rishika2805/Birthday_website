@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 import type { GalleryItem, StoryFrame } from './types';
+import MyVideo from '../assets/video/MyVideo.mp4';
 
 
 const galleryImageModules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,webp}', {
@@ -158,4 +159,4 @@ export const storyFrames: StoryFrame[] = [
 ];
 
 export const storyPassword = '2804';
-export const birthdayVideoUrl = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+export const birthdayVideoUrl = MyVideo;

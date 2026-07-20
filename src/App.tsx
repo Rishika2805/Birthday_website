@@ -35,8 +35,6 @@ export default function App() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [videoUnlockedOnce, setVideoUnlockedOnce] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  const wasMusicPlayingBeforeVideoRef = useRef(false);
 
   useEffect(() => {
     document.title = 'A Birthday Storybook';
@@ -68,14 +66,9 @@ export default function App() {
 
   const handleVideoStateChange = (videoPlaying: boolean) => {
     if (videoPlaying) {
-      wasMusicPlayingBeforeVideoRef.current = musicPlaying;
-      if (musicPlaying) {
-        setMusicPlaying(false);
-      }
+      setMusicPlaying(false);
     } else {
-      if (wasMusicPlayingBeforeVideoRef.current) {
-        setMusicPlaying(true);
-      }
+      setMusicPlaying(true);
     }
   };
 
