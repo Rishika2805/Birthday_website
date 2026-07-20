@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import type { GalleryItem, StoryFrame } from './types';
-import MyVideo from '../assets/video/MyVideo.mp4';
+import MyVideo from '../assets/video/Myvideo.mp4';
 
 
 const galleryImageModules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,webp}', {
@@ -33,8 +33,8 @@ export const galleryItems: GalleryItem[] = galleryImages.map((image, index) => (
   id: `photo-${index + 1}`,
   image,
   caption: [
-    'That smile',
     'My favorite picture.',
+    'That smile',
     'Looking handsome as always.',
     'I could stare at this forever.',
     'Still my favorite human.'
